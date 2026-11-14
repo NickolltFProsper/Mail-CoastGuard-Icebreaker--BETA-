@@ -1,0 +1,1 @@
+"""Mail CoastGuard backend package."""

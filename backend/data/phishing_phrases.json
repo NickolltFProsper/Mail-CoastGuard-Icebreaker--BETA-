@@ -1,0 +1,23 @@
+[
+  {"phrase": "cambio de contrasena", "weight": 4, "type": "petición de credenciales"},
+  {"phrase": "restablecer su contrasena", "weight": 4, "type": "petición de credenciales"},
+  {"phrase": "verifique su cuenta", "weight": 4, "type": "petición de credenciales"},
+  {"phrase": "verificar su cuenta", "weight": 4, "type": "petición de credenciales"},
+  {"phrase": "ingrese sus datos", "weight": 4, "type": "petición de credenciales"},
+  {"phrase": "confirme sus credenciales", "weight": 4, "type": "petición de credenciales"},
+  {"phrase": "actualice sus datos", "weight": 4, "type": "petición de credenciales"},
+  {"phrase": "envie su clave", "weight": 4, "type": "petición de credenciales"},
+  {"phrase": "su cuenta sera suspendida", "weight": 3, "type": "amenaza"},
+  {"phrase": "su cuenta sera bloqueada", "weight": 3, "type": "amenaza"},
+  {"phrase": "se cerrara su acceso", "weight": 3, "type": "amenaza"},
+  {"phrase": "perdera el acceso", "weight": 3, "type": "amenaza"},
+  {"phrase": "haga clic aqui", "weight": 2, "type": "enlace genérico"},
+  {"phrase": "ingrese al siguiente enlace", "weight": 2, "type": "enlace genérico"},
+  {"phrase": "pulse el siguiente enlace", "weight": 2, "type": "enlace genérico"},
+  {"phrase": "abra el archivo adjunto", "weight": 2, "type": "enlace genérico"},
+  {"phrase": "urgente", "weight": 1, "type": "urgencia artificial"},
+  {"phrase": "accion requerida", "weight": 1, "type": "urgencia artificial"},
+  {"phrase": "inmediatamente", "weight": 1, "type": "urgencia artificial"},
+  {"phrase": "ultimo aviso", "weight": 1, "type": "urgencia artificial"},
+  {"phrase": "en las proximas 24 horas", "weight": 1, "type": "urgencia artificial"}
+]

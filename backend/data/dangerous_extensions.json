@@ -1,0 +1,47 @@
+{
+  "prohibited": [
+    ".exe",
+    ".scr",
+    ".bat",
+    ".cmd",
+    ".com",
+    ".js",
+    ".jse",
+    ".vbs",
+    ".vbe",
+    ".wsf",
+    ".msi",
+    ".jar",
+    ".ps1",
+    ".lnk",
+    ".hta",
+    ".cpl",
+    ".dll",
+    ".reg",
+    ".apk"
+  ],
+  "suspicious": [
+    ".zip",
+    ".rar",
+    ".7z",
+    ".iso",
+    ".img",
+    ".docm",
+    ".xlsm",
+    ".pptm",
+    ".html",
+    ".htm"
+  ],
+  "common_documents": [
+    ".pdf",
+    ".doc",
+    ".docx",
+    ".xls",
+    ".xlsx",
+    ".ppt",
+    ".pptx",
+    ".txt",
+    ".jpg",
+    ".png"
+  ]
+}

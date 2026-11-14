@@ -1,0 +1,206 @@
+/**
+ * Popup styles for Mail CoastGuard browser extension.
+ * Width: 320px. Conforms to design tokens and CSP rules.
+ */
+body {
+  width: 320px;
+  margin: 0;
+  padding: 0;
+  font-family: "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, Roboto, Arial, sans-serif;
+  background-color: #F4F6FA;
+  color: #1F2937;
+  user-select: none;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+.popup-container {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.popup-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border-bottom: 1px solid #E1E5EE;
+  padding-bottom: 12px;
+}
+
+.popup-logo {
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+}
+
+.popup-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: #1D2B5B;
+  margin: 0;
+}
+
+/* Service status indicator */
+.status-card {
+  background: #FFFFFF;
+  border: 1px solid #E1E5EE;
+  border-radius: 8px;
+  padding: 10px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.status-label {
+  font-size: 13px;
+  font-weight: 500;
+  color: #4B5563;
+}
+
+.status-indicator {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #9CA3AF;
+}
+
+.status-dot.online {
+  background-color: #10B981;
+}
+
+.status-dot.offline {
+  background-color: #EF4444;
+}
+
+/* Settings */
+.settings-section {
+  background: #FFFFFF;
+  border: 1px solid #E1E5EE;
+  border-radius: 8px;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.setting-toggle-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.setting-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #1F2937;
+}
+
+/* Switch toggle */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  height: 22px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #D1D5DB;
+  transition: .2s;
+  border-radius: 22px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 16px;
+  width: 16px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  transition: .2s;
+  border-radius: 50%;
+}
+
+input:checked + .slider {
+  background-color: #22A7B4;
+}
+
+input:checked + .slider:before {
+  transform: translateX(18px);
+}
+
+.url-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.url-input-row {
+  display: flex;
+  gap: 6px;
+}
+
+.url-input {
+  flex: 1;
+  border: 1px solid #D1D5DB;
+  border-radius: 6px;
+  padding: 6px 8px;
+  font-size: 12px;
+  outline: none;
+}
+
+.url-input:focus {
+  border-color: #22A7B4;
+}
+
+.btn-save {
+  background-color: #1D2B5B;
+  color: #FFF;
+  border: none;
+  border-radius: 6px;
+  padding: 6px 12px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn-save:hover {
+  background-color: #141F42;
+}
+
+.msg-feedback {
+  font-size: 11px;
+  min-height: 16px;
+}
+
+.msg-feedback.success {
+  color: #059669;
+}
+
+.msg-feedback.error {
+  color: #DC2626;
+}

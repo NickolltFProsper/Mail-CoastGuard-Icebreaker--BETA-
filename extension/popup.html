@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Mail CoastGuard</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="popup-container">
+    <!-- Header -->
+    <div class="popup-header">
+      <img src="icons/icon-32.png" alt="" class="popup-logo">
+      <h1 class="popup-title">Mail CoastGuard</h1>
+    </div>
+
+    <!-- Status Card -->
+    <div class="status-card">
+      <span class="status-label">Estado del servicio</span>
+      <div class="status-indicator">
+        <span class="status-dot" id="status-dot"></span>
+        <span id="status-text">Verificando...</span>
+      </div>
+    </div>
+
+    <!-- Settings Section -->
+    <div class="settings-section">
+      <!-- Toggle Active -->
+      <div class="setting-toggle-row">
+        <span class="setting-label">Verificación activada</span>
+        <label class="switch">
+          <input type="checkbox" id="toggle-active" checked>
+          <span class="slider"></span>
+        </label>
+      </div>
+
+      <!-- Backend URL Configuration -->
+      <div class="url-group">
+        <label for="backend-url" class="setting-label">Dirección del servicio</label>
+        <div class="url-input-row">
+          <input type="text" id="backend-url" class="url-input" placeholder="http://127.0.0.1:8000">
+          <button type="button" id="btn-save-url" class="btn-save">Guardar</button>
+        </div>
+        <div id="url-feedback" class="msg-feedback"></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="core.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>

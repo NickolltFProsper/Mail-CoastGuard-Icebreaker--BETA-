@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .mcg-badge-pill {
+    @apply inline-block px-2.5 py-1 text-xs font-extrabold uppercase rounded tracking-wider;
+  }
+}

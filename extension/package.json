@@ -1,0 +1,13 @@
+{
+  "name": "mail-coastguard-extension",
+  "version": "1.0.0",
+  "description": "Mail CoastGuard browser extension for institutional webmail security verification",
+  "private": true,
+  "scripts": {
+    "build": "node scripts/build.js",
+    "test": "node --test tests/*.test.js"
+  },
+  "devDependencies": {
+    "tailwindcss": "3.4.17"
+  }
+}

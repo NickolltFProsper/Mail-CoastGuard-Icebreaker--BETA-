@@ -1,0 +1,1604 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Correo UNETI</title>
+  <style>
+    :root {
+      --color-navy: #1D2B5B;
+      --color-turquoise: #22A7B4;
+      --color-orange: #F15A24;
+      --color-yellow: #FBB827;
+      --color-purple: #5E2D79;
+      --color-green: #3FA535;
+      --color-bg: #F4F6FA;
+      --color-surface: #FFFFFF;
+      --color-border: #E1E5EE;
+      --color-text: #1F2937;
+      --color-text-secondary: #6B7280;
+      --color-unread: #22A7B4;
+      --font-stack: "Montserrat", "Segoe UI", system-ui, -apple-system, Arial, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-stack);
+      background-color: var(--color-bg);
+      color: var(--color-text);
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      overflow: hidden;
+      min-width: 1024px;
+    }
+
+    /* Header */
+    header {
+      height: 64px;
+      background: var(--color-surface);
+      border-bottom: 1px solid var(--color-border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+      position: relative;
+      flex-shrink: 0;
+    }
+
+    .header-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-logo {
+      height: 40px;
+      width: 40px;
+      object-fit: contain;
+      border-radius: 6px;
+    }
+
+    .brand-fallback {
+      height: 40px;
+      padding: 0 10px;
+      background: var(--color-navy);
+      color: #FFF;
+      font-weight: 700;
+      font-size: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 6px;
+    }
+
+    .brand-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--color-navy);
+      letter-spacing: -0.3px;
+    }
+
+    .search-box {
+      display: flex;
+      align-items: center;
+      background: var(--color-bg);
+      border: 1px solid var(--color-border);
+      border-radius: 8px;
+      padding: 8px 16px;
+      width: 400px;
+      gap: 8px;
+    }
+
+    .search-box svg {
+      width: 18px;
+      height: 18px;
+      fill: none;
+      stroke: var(--color-text-secondary);
+      stroke-width: 2;
+    }
+
+    .search-box input {
+      border: none;
+      background: transparent;
+      outline: none;
+      width: 100%;
+      font-size: 14px;
+      color: var(--color-text);
+      font-family: inherit;
+    }
+
+    .user-profile {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .user-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--color-purple);
+      color: #FFF;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      font-size: 14px;
+    }
+
+    .user-details {
+      font-size: 13px;
+      color: var(--color-text-secondary);
+    }
+
+    .user-details strong {
+      color: var(--color-text);
+      display: block;
+    }
+
+    /* Color Bar */
+    .color-strip {
+      height: 4px;
+      display: flex;
+      width: 100%;
+      flex-shrink: 0;
+    }
+
+    .strip-orange { background: var(--color-orange); flex: 1; }
+    .strip-yellow { background: var(--color-yellow); flex: 1; }
+    .strip-purple { background: var(--color-purple); flex: 1; }
+    .strip-turquoise { background: var(--color-turquoise); flex: 1; }
+    .strip-navy { background: var(--color-navy); flex: 1; }
+    .strip-green { background: var(--color-green); flex: 1; }
+
+    /* Main Layout */
+    .main-workspace {
+      display: flex;
+      flex: 1;
+      overflow: hidden;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      width: 220px;
+      background: var(--color-surface);
+      border-right: 1px solid var(--color-border);
+      padding: 16px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+
+    .btn-simulate {
+      background: var(--color-orange);
+      color: #FFF;
+      border: none;
+      border-radius: 8px;
+      padding: 12px 16px;
+      font-weight: 600;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      cursor: pointer;
+      box-shadow: 0 2px 4px rgba(241, 90, 36, 0.2);
+      transition: background 0.15s ease;
+      margin-bottom: 12px;
+      font-family: inherit;
+    }
+
+    .btn-simulate:hover {
+      background: #D94B1B;
+    }
+
+    .btn-simulate svg {
+      width: 18px;
+      height: 18px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2;
+    }
+
+    .folder-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 14px;
+      border-radius: 6px;
+      color: var(--color-text-secondary);
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 500;
+      transition: background 0.15s ease, color 0.15s ease;
+      user-select: none;
+    }
+
+    .folder-item-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .folder-item svg {
+      width: 18px;
+      height: 18px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1.8;
+    }
+
+    .folder-item:hover {
+      background: rgba(29, 43, 91, 0.05);
+      color: var(--color-navy);
+    }
+
+    .folder-item.active {
+      background: rgba(29, 43, 91, 0.08);
+      color: var(--color-navy);
+      font-weight: 600;
+      border-left: 4px solid var(--color-orange);
+      border-radius: 0 6px 6px 0;
+    }
+
+    .unread-badge {
+      background: var(--color-turquoise);
+      color: #FFF;
+      border-radius: 10px;
+      padding: 2px 8px;
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    /* Email List */
+    .email-list-pane {
+      width: 360px;
+      background: var(--color-surface);
+      border-right: 1px solid var(--color-border);
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+      flex-shrink: 0;
+    }
+
+    .email-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--color-border);
+      cursor: pointer;
+      position: relative;
+      transition: background 0.1s ease;
+    }
+
+    .email-row:hover {
+      background: #F8FAFC;
+    }
+
+    .email-row.selected {
+      background: #EFF6FF;
+      border-left: 3px solid var(--color-navy);
+    }
+
+    .row-avatar {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      color: #FFF;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      font-size: 13px;
+      flex-shrink: 0;
+    }
+
+    .row-content {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .row-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 3px;
+    }
+
+    .row-sender {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--color-text);
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .row-unread .row-sender {
+      font-weight: 700;
+      color: #000;
+    }
+
+    .row-time {
+      font-size: 11px;
+      color: var(--color-text-secondary);
+      flex-shrink: 0;
+    }
+
+    .row-subject {
+      font-size: 13px;
+      color: var(--color-text);
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      margin-bottom: 2px;
+    }
+
+    .row-unread .row-subject {
+      font-weight: 700;
+    }
+
+    .row-snippet {
+      font-size: 12px;
+      color: var(--color-text-secondary);
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .unread-indicator-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--color-turquoise);
+      display: inline-block;
+      margin-right: 6px;
+      flex-shrink: 0;
+    }
+
+    .clip-icon {
+      width: 14px;
+      height: 14px;
+      fill: none;
+      stroke: var(--color-text-secondary);
+      stroke-width: 2;
+      margin-left: 4px;
+      vertical-align: middle;
+    }
+
+    /* Reading Pane */
+    .reading-pane {
+      flex: 1;
+      background: var(--color-bg);
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+      padding: 24px;
+      position: relative;
+    }
+
+    .empty-state {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      color: var(--color-text-secondary);
+      gap: 16px;
+    }
+
+    .empty-state svg {
+      width: 64px;
+      height: 64px;
+      stroke: var(--color-border);
+      fill: none;
+      stroke-width: 1.5;
+    }
+
+    .reading-card {
+      background: var(--color-surface);
+      border-radius: 8px;
+      border: 1px solid var(--color-border);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    /* Action bar */
+    .reading-actions {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 8px;
+      border-bottom: 1px solid var(--color-border);
+      padding-bottom: 12px;
+    }
+
+    .btn-action {
+      background: transparent;
+      border: 1px solid var(--color-border);
+      border-radius: 6px;
+      padding: 6px 12px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--color-text);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: background 0.15s ease;
+      font-family: inherit;
+    }
+
+    .btn-action:hover {
+      background: var(--color-bg);
+    }
+
+    .btn-action-delete:hover {
+      color: #DC2626;
+      border-color: #FCA5A5;
+      background: #FEF2F2;
+    }
+
+    /* Notices Anchor */
+    .notices-anchor {
+      /* Empty container for extension injection */
+    }
+
+    /* Message Header */
+    .message-header {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .message-subject {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--color-navy);
+      line-height: 1.3;
+    }
+
+    .sender-info-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: 4px;
+    }
+
+    .sender-details {
+      font-size: 14px;
+      color: var(--color-text);
+    }
+
+    .sender-name {
+      font-weight: 600;
+      color: var(--color-text);
+    }
+
+    .sender-addr {
+      color: var(--color-text-secondary);
+      margin-left: 4px;
+    }
+
+    .meta-line {
+      font-size: 12px;
+      color: var(--color-text-secondary);
+      margin-top: 2px;
+    }
+
+    /* Attachments Area */
+    .attachments-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      padding: 12px 0;
+      border-top: 1px dashed var(--color-border);
+      border-bottom: 1px dashed var(--color-border);
+    }
+
+    .attachment-chip {
+      background: var(--color-bg);
+      border: 1px solid var(--color-border);
+      border-radius: 6px;
+      padding: 8px 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.15s ease, border-color 0.15s ease;
+      user-select: none;
+    }
+
+    .attachment-chip:hover {
+      background: #E5E7EB;
+      border-color: #D1D5DB;
+    }
+
+    .attachment-chip svg {
+      width: 16px;
+      height: 16px;
+      stroke: var(--color-text-secondary);
+      fill: none;
+      stroke-width: 2;
+    }
+
+    /* Message Body */
+    .message-body {
+      font-size: 14px;
+      line-height: 1.6;
+      color: var(--color-text);
+      white-space: pre-wrap;
+      word-break: break-word;
+      padding-top: 8px;
+    }
+
+    /* Simulator Modal Window */
+    .simulator-window {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      width: 480px;
+      background: var(--color-surface);
+      border-radius: 10px;
+      border: 1px solid var(--color-border);
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.15), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+      display: flex;
+      flex-direction: column;
+      z-index: 1000;
+      overflow: hidden;
+      transition: height 0.2s ease, opacity 0.2s ease;
+    }
+
+    .simulator-window.hidden {
+      display: none;
+    }
+
+    .simulator-window.minimized .simulator-body,
+    .simulator-window.minimized .simulator-footer {
+      display: none;
+    }
+
+    .simulator-header {
+      background: var(--color-navy);
+      color: #FFF;
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      user-select: none;
+    }
+
+    .simulator-header h3 {
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .simulator-controls {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .simulator-btn-ctrl {
+      background: transparent;
+      border: none;
+      color: #FFF;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 4px;
+      border-radius: 4px;
+      opacity: 0.8;
+      transition: opacity 0.15s ease;
+    }
+
+    .simulator-btn-ctrl:hover {
+      opacity: 1;
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .simulator-btn-ctrl svg {
+      width: 14px;
+      height: 14px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 2.5;
+    }
+
+    .simulator-body {
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      max-height: 65vh;
+      overflow-y: auto;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .form-group label {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--color-text);
+    }
+
+    .form-control {
+      border: 1px solid var(--color-border);
+      border-radius: 6px;
+      padding: 8px 10px;
+      font-size: 13px;
+      color: var(--color-text);
+      font-family: inherit;
+      outline: none;
+      transition: border-color 0.15s ease;
+    }
+
+    .form-control:focus {
+      border-color: var(--color-turquoise);
+    }
+
+    .form-control.error {
+      border-color: #EF4444;
+      background-color: #FEF2F2;
+    }
+
+    .field-error-msg {
+      font-size: 11px;
+      color: #DC2626;
+      display: none;
+    }
+
+    .form-control.error + .field-error-msg {
+      display: block;
+    }
+
+    textarea.form-control {
+      resize: vertical;
+      min-height: 90px;
+    }
+
+    .advanced-toggle {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--color-navy);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      user-select: none;
+      padding: 4px 0;
+    }
+
+    .advanced-fields {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      padding-top: 4px;
+    }
+
+    .advanced-fields.collapsed {
+      display: none;
+    }
+
+    .attachment-input-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 6px;
+    }
+
+    .btn-add-att {
+      background: transparent;
+      border: 1px dashed var(--color-border);
+      border-radius: 6px;
+      padding: 6px 10px;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--color-text-secondary);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      font-family: inherit;
+    }
+
+    .btn-add-att:hover {
+      border-color: var(--color-turquoise);
+      color: var(--color-navy);
+    }
+
+    .simulator-footer {
+      padding: 12px 16px;
+      background: var(--color-bg);
+      border-top: 1px solid var(--color-border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .btn-clean {
+      background: transparent;
+      border: 1px solid var(--color-border);
+      border-radius: 6px;
+      padding: 8px 14px;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      color: var(--color-text);
+      font-family: inherit;
+    }
+
+    .btn-receive {
+      background: var(--color-orange);
+      color: #FFF;
+      border: none;
+      border-radius: 6px;
+      padding: 8px 16px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 1px 3px rgba(241, 90, 36, 0.3);
+      font-family: inherit;
+    }
+
+    .btn-receive:hover {
+      background: #D94B1B;
+    }
+
+    /* Toast Notification */
+    .toast-container {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #1F2937;
+      color: #FFF;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 500;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      z-index: 2000;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease;
+    }
+
+    .toast-container.visible {
+      opacity: 1;
+    }
+
+    /* Footer */
+    footer {
+      height: 28px;
+      background: var(--color-surface);
+      border-top: 1px solid var(--color-border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      color: var(--color-text-secondary);
+      flex-shrink: 0;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="header-brand">
+      <img id="logo-img" class="brand-logo" src="/assets/uneti_logo.png" alt="" onerror="this.style.display='none'; document.getElementById('logo-fallback').style.display='flex';">
+      <div id="logo-fallback" class="brand-fallback" style="display: none;">UNETI</div>
+      <span class="brand-title">Correo Institucional</span>
+    </div>
+
+    <div class="search-box">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+      <input type="text" id="search-input" placeholder="Buscar en el correo" aria-label="Buscar en el correo">
+    </div>
+
+    <div class="user-profile">
+      <div class="user-avatar" aria-hidden="true">UI</div>
+      <div class="user-details">
+        <strong>Usuario Institucional</strong>
+        <span>usuario@uneti.edu.ve</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Decorative Strip -->
+  <div class="color-strip" aria-hidden="true">
+    <div class="strip-orange"></div>
+    <div class="strip-yellow"></div>
+    <div class="strip-purple"></div>
+    <div class="strip-turquoise"></div>
+    <div class="strip-navy"></div>
+    <div class="strip-green"></div>
+  </div>
+
+  <!-- Workspace Grid -->
+  <div class="main-workspace">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <button type="button" class="btn-simulate" id="open-simulator-btn">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+        <span>Simular correo</span>
+      </button>
+
+      <div class="folder-item active" data-folder="inbox" tabindex="0">
+        <div class="folder-item-left">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="22 12 16 12 14 15 10 15 8 12 2 12"></polyline><path d="M5.45 5.11L2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"></path></svg>
+          <span>Recibidos</span>
+        </div>
+        <span class="unread-badge" id="inbox-unread-count">0</span>
+      </div>
+
+      <div class="folder-item" data-folder="starred" tabindex="0">
+        <div class="folder-item-left">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+          <span>Destacados</span>
+        </div>
+      </div>
+
+      <div class="folder-item" data-folder="sent" tabindex="0">
+        <div class="folder-item-left">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+          <span>Enviados</span>
+        </div>
+      </div>
+
+      <div class="folder-item" data-folder="drafts" tabindex="0">
+        <div class="folder-item-left">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+          <span>Borradores</span>
+        </div>
+      </div>
+
+      <div class="folder-item" data-folder="spam" tabindex="0">
+        <div class="folder-item-left">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+          <span>Spam</span>
+        </div>
+      </div>
+
+      <div class="folder-item" data-folder="trash" tabindex="0">
+        <div class="folder-item-left">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+          <span>Papelera</span>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Email List -->
+    <section class="email-list-pane" id="email-list" role="listbox" aria-label="Lista de correos">
+      <!-- Generated rows dynamically -->
+    </section>
+
+    <!-- Reading Pane -->
+    <main class="reading-pane" id="reading-pane">
+      <div class="empty-state" id="empty-reading-state">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+        <p>Seleccione un mensaje para leerlo.</p>
+      </div>
+
+      <div class="reading-card" id="active-reading-card" style="display: none;">
+        <!-- Action bar -->
+        <div class="reading-actions">
+          <button type="button" class="btn-action" id="action-edit-as-new">
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+            <span>Editar como nuevo</span>
+          </button>
+          <button type="button" class="btn-action btn-action-delete" id="action-delete">
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+            <span>Eliminar</span>
+          </button>
+        </div>
+
+        <!-- Extension Notices Anchor (Section 7 Contract) -->
+        <div data-anchor="notices" class="notices-anchor"></div>
+
+        <!-- Message Header -->
+        <div class="message-header">
+          <h2 class="message-subject" data-field="subject"></h2>
+          <div class="sender-info-row">
+            <div class="row-avatar" id="reading-avatar" aria-hidden="true"></div>
+            <div class="sender-details">
+              <span class="sender-name" data-field="display-name"></span>
+              <span class="sender-addr" data-field="sender"></span>
+              <div class="meta-line">
+                <span>para: mí</span> · <span id="reading-datetime"></span>
+              </div>
+              <div class="meta-line" id="reading-reply-to-line" style="display: none;">
+                <span>Responder a: </span><span data-field="reply-to"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Attachments Container -->
+        <div class="attachments-container" id="reading-attachments" style="display: none;">
+          <!-- Dynamically created attachment chips conforming to Section 7 contract -->
+        </div>
+
+        <!-- Message Body -->
+        <div class="message-body" data-field="body"></div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Simulator Modal Window -->
+  <div class="simulator-window hidden" id="simulator-modal" role="dialog" aria-labelledby="simulator-title">
+    <div class="simulator-header">
+      <h3 id="simulator-title">Simular correo entrante</h3>
+      <div class="simulator-controls">
+        <button type="button" class="simulator-btn-ctrl" id="sim-minimize-btn" title="Minimizar" aria-label="Minimizar">
+          <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+        </button>
+        <button type="button" class="simulator-btn-ctrl" id="sim-close-btn" title="Cerrar" aria-label="Cerrar">
+          <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="simulator-body">
+      <div class="form-group" id="templates-group">
+        <label for="sim-templates-select">Ejemplos rápidos</label>
+        <select id="sim-templates-select" class="form-control">
+          <option value="">Seleccione una plantilla...</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="sim-sender">De (correo electrónico) *</label>
+        <input type="text" id="sim-sender" class="form-control" maxlength="320" placeholder="remitente@ejemplo.com">
+        <span class="field-error-msg">Este campo es obligatorio</span>
+      </div>
+
+      <div class="form-group">
+        <label for="sim-subject">Asunto</label>
+        <input type="text" id="sim-subject" class="form-control" maxlength="500" placeholder="(sin asunto)">
+      </div>
+
+      <div class="form-group">
+        <label for="sim-body">Mensaje *</label>
+        <textarea id="sim-body" class="form-control" maxlength="50000" placeholder="Escriba el contenido del mensaje..."></textarea>
+        <span class="field-error-msg">Este campo es obligatorio</span>
+      </div>
+
+      <div class="form-group">
+        <label>Archivos adjuntos (nombre y extensión)</label>
+        <div id="attachments-inputs-list">
+          <div class="attachment-input-row">
+            <input type="text" class="form-control sim-attachment-input" maxlength="255" placeholder="documento.pdf">
+          </div>
+        </div>
+        <button type="button" class="btn-add-att" id="add-att-btn">+ Agregar otro adjunto</button>
+      </div>
+
+      <div class="form-group">
+        <div class="advanced-toggle" id="advanced-toggle-btn">
+          <span>Opciones avanzadas</span>
+          <span id="adv-arrow">▾</span>
+        </div>
+        <div class="advanced-fields collapsed" id="advanced-fields-container">
+          <div class="form-group">
+            <label for="sim-display-name">Nombre visible del remitente</label>
+            <input type="text" id="sim-display-name" class="form-control" maxlength="200" placeholder="Nombre Apellido">
+          </div>
+          <div class="form-group">
+            <label for="sim-reply-to">Responder a</label>
+            <input type="text" id="sim-reply-to" class="form-control" maxlength="320" placeholder="respuestas@ejemplo.com">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="simulator-footer">
+      <button type="button" class="btn-clean" id="sim-clean-btn">Limpiar</button>
+      <button type="button" class="btn-receive" id="sim-receive-btn">Recibir en bandeja</button>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div class="toast-container" id="toast-msg" role="status" aria-live="polite">
+    Archivo simulado: no se puede abrir.
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <span>Universidad Nacional Experimental de Telecomunicaciones e Informática</span>
+  </footer>
+
+  <script>
+    // State management
+    const state = {
+      emails: [],
+      currentFolder: "inbox",
+      selectedEmailId: null,
+      searchQuery: "",
+      templates: [],
+      forgedCount: 0
+    };
+
+    const AVATAR_COLORS = ["#1D2B5B", "#22A7B4", "#F15A24", "#FBB827", "#5E2D79", "#3FA535"];
+
+    function getAvatarColor(identifier) {
+      let hash = 0;
+      for (let i = 0; i < identifier.length; i++) {
+        hash = identifier.charCodeAt(i) + ((hash << 5) - hash);
+      }
+      const index = Math.abs(hash) % AVATAR_COLORS.length;
+      return AVATAR_COLORS[index];
+    }
+
+    function getInitials(name) {
+      if (!name) return "UI";
+      const parts = name.trim().split(/\s+/);
+      if (parts.length >= 2) {
+        return (parts[0][0] + parts[1][0]).toUpperCase();
+      }
+      return name.slice(0, 2).toUpperCase();
+    }
+
+    function showToast(message) {
+      const toast = document.getElementById("toast-msg");
+      toast.textContent = message;
+      toast.classList.add("visible");
+      setTimeout(() => {
+        toast.classList.remove("visible");
+      }, 3000);
+    }
+
+    // DOM References
+    const emailListEl = document.getElementById("email-list");
+    const readingCardEl = document.getElementById("active-reading-card");
+    const emptyReadingEl = document.getElementById("empty-reading-state");
+    const unreadCountEl = document.getElementById("inbox-unread-count");
+    const searchInput = document.getElementById("search-input");
+    const simulatorModal = document.getElementById("simulator-modal");
+    const templatesSelect = document.getElementById("sim-templates-select");
+    const attachmentsInputsList = document.getElementById("attachments-inputs-list");
+
+    // Initialize application
+    async function initApp() {
+      await loadInboxEmails();
+      await loadTemplates();
+      bindEvents();
+      renderEmailList();
+    }
+
+    async function loadInboxEmails() {
+      try {
+        const resp = await fetch("/inbox_emails.json");
+        if (!resp.ok) throw new Error("HTTP " + resp.status);
+        state.emails = await resp.json();
+      } catch (err) {
+        state.emails = [];
+        showToast("No se pudieron cargar los mensajes.");
+      }
+    }
+
+    async function loadTemplates() {
+      try {
+        const resp = await fetch("/email_templates.json");
+        if (!resp.ok) throw new Error("HTTP " + resp.status);
+        state.templates = await resp.json();
+        populateTemplatesSelect();
+      } catch (err) {
+        document.getElementById("templates-group").style.display = "none";
+      }
+    }
+
+    function populateTemplatesSelect() {
+      while (templatesSelect.firstChild) {
+        templatesSelect.removeChild(templatesSelect.firstChild);
+      }
+      const defaultOpt = document.createElement("option");
+      defaultOpt.value = "";
+      defaultOpt.textContent = "Seleccione una plantilla...";
+      templatesSelect.appendChild(defaultOpt);
+
+      state.templates.forEach((tmpl, idx) => {
+        const opt = document.createElement("option");
+        opt.value = idx.toString();
+        opt.textContent = tmpl.name;
+        templatesSelect.appendChild(opt);
+      });
+    }
+
+    function bindEvents() {
+      // Sidebar folders
+      document.querySelectorAll(".folder-item").forEach(folder => {
+        folder.addEventListener("click", () => {
+          document.querySelectorAll(".folder-item").forEach(f => f.classList.remove("active"));
+          folder.classList.add("active");
+          state.currentFolder = folder.getAttribute("data-folder");
+          state.selectedEmailId = null;
+          renderEmailList();
+          renderReadingPane();
+        });
+      });
+
+      // Search
+      searchInput.addEventListener("input", (e) => {
+        state.searchQuery = e.target.value.toLowerCase().trim();
+        renderEmailList();
+      });
+
+      // Simulator controls
+      document.getElementById("open-simulator-btn").addEventListener("click", () => {
+        openSimulator();
+      });
+
+      document.getElementById("sim-close-btn").addEventListener("click", () => {
+        simulatorModal.classList.add("hidden");
+      });
+
+      document.getElementById("sim-minimize-btn").addEventListener("click", () => {
+        simulatorModal.classList.toggle("minimized");
+      });
+
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && !simulatorModal.classList.contains("hidden")) {
+          simulatorModal.classList.add("hidden");
+        }
+      });
+
+      // Advanced toggle
+      document.getElementById("advanced-toggle-btn").addEventListener("click", () => {
+        const adv = document.getElementById("advanced-fields-container");
+        adv.classList.toggle("collapsed");
+        document.getElementById("adv-arrow").textContent = adv.classList.contains("collapsed") ? "▾" : "▴";
+      });
+
+      // Add attachment input
+      document.getElementById("add-att-btn").addEventListener("click", () => {
+        const rows = attachmentsInputsList.querySelectorAll(".attachment-input-row");
+        if (rows.length >= 5) return;
+        const newRow = document.createElement("div");
+        newRow.className = "attachment-input-row";
+        const input = document.createElement("input");
+        input.type = "text";
+        input.className = "form-control sim-attachment-input";
+        input.maxLength = 255;
+        input.placeholder = "archivo_" + (rows.length + 1) + ".ext";
+        newRow.appendChild(input);
+        attachmentsInputsList.appendChild(newRow);
+        if (attachmentsInputsList.querySelectorAll(".attachment-input-row").length >= 5) {
+          document.getElementById("add-att-btn").style.display = "none";
+        }
+      });
+
+      // Template selection
+      templatesSelect.addEventListener("change", (e) => {
+        const idx = e.target.value;
+        if (!idx) return;
+        const tmpl = state.templates[parseInt(idx, 10)];
+        if (!tmpl) return;
+
+        document.getElementById("sim-sender").value = tmpl.sender || "";
+        document.getElementById("sim-subject").value = tmpl.subject || "";
+        document.getElementById("sim-body").value = tmpl.body || "";
+        document.getElementById("sim-display-name").value = tmpl.display_name || "";
+        document.getElementById("sim-reply-to").value = tmpl.reply_to || "";
+
+        if (tmpl.display_name || tmpl.reply_to) {
+          document.getElementById("advanced-fields-container").classList.remove("collapsed");
+          document.getElementById("adv-arrow").textContent = "▴";
+        }
+
+        while (attachmentsInputsList.firstChild) {
+          attachmentsInputsList.removeChild(attachmentsInputsList.firstChild);
+        }
+        const attList = tmpl.attachments || [];
+        if (attList.length > 0) {
+          attList.slice(0, 5).forEach(attName => {
+            const r = document.createElement("div");
+            r.className = "attachment-input-row";
+            const inp = document.createElement("input");
+            inp.type = "text";
+            inp.className = "form-control sim-attachment-input";
+            inp.maxLength = 255;
+            inp.value = attName;
+            r.appendChild(inp);
+            attachmentsInputsList.appendChild(r);
+          });
+        } else {
+          const r = document.createElement("div");
+          r.className = "attachment-input-row";
+          const inp = document.createElement("input");
+          inp.type = "text";
+          inp.className = "form-control sim-attachment-input";
+          inp.maxLength = 255;
+          inp.placeholder = "documento.pdf";
+          r.appendChild(inp);
+          attachmentsInputsList.appendChild(r);
+        }
+        document.getElementById("add-att-btn").style.display = (attachmentsInputsList.querySelectorAll(".attachment-input-row").length >= 5) ? "none" : "flex";
+      });
+
+      // Simulator clear
+      document.getElementById("sim-clean-btn").addEventListener("click", () => {
+        clearSimulatorForm();
+      });
+
+      // Simulator receive
+      document.getElementById("sim-receive-btn").addEventListener("click", () => {
+        receiveForgedEmail();
+      });
+
+      // Action bar buttons
+      document.getElementById("action-delete").addEventListener("click", () => {
+        if (!state.selectedEmailId) return;
+        state.emails = state.emails.filter(e => e.id !== state.selectedEmailId);
+        state.selectedEmailId = null;
+        renderEmailList();
+        renderReadingPane();
+      });
+
+      document.getElementById("action-edit-as-new").addEventListener("click", () => {
+        const cur = state.emails.find(e => e.id === state.selectedEmailId);
+        if (!cur) return;
+        openSimulatorWithData(cur);
+      });
+    }
+
+    function openSimulator() {
+      simulatorModal.classList.remove("hidden");
+      simulatorModal.classList.remove("minimized");
+      document.getElementById("sim-sender").focus();
+    }
+
+    function openSimulatorWithData(email) {
+      openSimulator();
+      document.getElementById("sim-sender").value = email.sender || "";
+      document.getElementById("sim-subject").value = email.subject || "";
+      document.getElementById("sim-body").value = email.body || "";
+      document.getElementById("sim-display-name").value = email.display_name || "";
+      document.getElementById("sim-reply-to").value = email.reply_to || "";
+
+      if (email.display_name || email.reply_to) {
+        document.getElementById("advanced-fields-container").classList.remove("collapsed");
+        document.getElementById("adv-arrow").textContent = "▴";
+      }
+
+      while (attachmentsInputsList.firstChild) {
+        attachmentsInputsList.removeChild(attachmentsInputsList.firstChild);
+      }
+      const atts = email.attachments || [];
+      if (atts.length > 0) {
+        atts.slice(0, 5).forEach(attName => {
+          const r = document.createElement("div");
+          r.className = "attachment-input-row";
+          const inp = document.createElement("input");
+          inp.type = "text";
+          inp.className = "form-control sim-attachment-input";
+          inp.maxLength = 255;
+          inp.value = attName;
+          r.appendChild(inp);
+          attachmentsInputsList.appendChild(r);
+        });
+      } else {
+        const r = document.createElement("div");
+        r.className = "attachment-input-row";
+        const inp = document.createElement("input");
+        inp.type = "text";
+        inp.className = "form-control sim-attachment-input";
+        inp.maxLength = 255;
+        r.appendChild(inp);
+        attachmentsInputsList.appendChild(r);
+      }
+      document.getElementById("add-att-btn").style.display = (attachmentsInputsList.querySelectorAll(".attachment-input-row").length >= 5) ? "none" : "flex";
+    }
+
+    function clearSimulatorForm() {
+      document.getElementById("sim-sender").value = "";
+      document.getElementById("sim-subject").value = "";
+      document.getElementById("sim-body").value = "";
+      document.getElementById("sim-display-name").value = "";
+      document.getElementById("sim-reply-to").value = "";
+      templatesSelect.value = "";
+      while (attachmentsInputsList.firstChild) {
+        attachmentsInputsList.removeChild(attachmentsInputsList.firstChild);
+      }
+      const r = document.createElement("div");
+      r.className = "attachment-input-row";
+      const inp = document.createElement("input");
+      inp.type = "text";
+      inp.className = "form-control sim-attachment-input";
+      inp.maxLength = 255;
+      r.appendChild(inp);
+      attachmentsInputsList.appendChild(r);
+      document.getElementById("add-att-btn").style.display = "flex";
+      document.getElementById("sim-sender").classList.remove("error");
+      document.getElementById("sim-body").classList.remove("error");
+    }
+
+    function receiveForgedEmail() {
+      const senderInput = document.getElementById("sim-sender");
+      const bodyInput = document.getElementById("sim-body");
+      const subjectInput = document.getElementById("sim-subject");
+      const dispInput = document.getElementById("sim-display-name");
+      const replyToInput = document.getElementById("sim-reply-to");
+
+      let hasError = false;
+      if (!senderInput.value.trim()) {
+        senderInput.classList.add("error");
+        hasError = true;
+      } else {
+        senderInput.classList.remove("error");
+      }
+
+      if (!bodyInput.value.trim()) {
+        bodyInput.classList.add("error");
+        hasError = true;
+      } else {
+        bodyInput.classList.remove("error");
+      }
+
+      if (hasError) return;
+
+      const atts = [];
+      document.querySelectorAll(".sim-attachment-input").forEach(inp => {
+        const val = inp.value.trim();
+        if (val) atts.push(val);
+      });
+
+      state.forgedCount++;
+      const now = new Date();
+      const hh = String(now.getHours()).padStart(2, "0");
+      const mm = String(now.getMinutes()).padStart(2, "0");
+
+      const newEmail = {
+        id: "forged-" + state.forgedCount,
+        sender: senderInput.value,
+        display_name: dispInput.value,
+        reply_to: replyToInput.value,
+        subject: subjectInput.value.trim() ? subjectInput.value : "(sin asunto)",
+        body: bodyInput.value,
+        attachments: atts,
+        datetime_label: hh + ":" + mm,
+        read: false
+      };
+
+      state.emails.unshift(newEmail);
+      state.currentFolder = "inbox";
+      document.querySelectorAll(".folder-item").forEach(f => {
+        f.classList.toggle("active", f.getAttribute("data-folder") === "inbox");
+      });
+
+      simulatorModal.classList.add("minimized");
+      clearSimulatorForm();
+
+      state.selectedEmailId = newEmail.id;
+      newEmail.read = true;
+      renderEmailList();
+      renderReadingPane();
+    }
+
+    function renderEmailList() {
+      while (emailListEl.firstChild) {
+        emailListEl.removeChild(emailListEl.firstChild);
+      }
+
+      // Count unread in inbox
+      const unreadCount = state.emails.filter(e => !e.read).length;
+      unreadCountEl.textContent = unreadCount.toString();
+
+      if (state.currentFolder !== "inbox") {
+        const emptyDiv = document.createElement("div");
+        emptyDiv.className = "empty-state";
+        emptyDiv.style.padding = "40px 16px";
+        const p = document.createElement("p");
+        p.textContent = "No hay mensajes en esta carpeta.";
+        emptyDiv.appendChild(p);
+        emailListEl.appendChild(emptyDiv);
+        return;
+      }
+
+      const filtered = state.emails.filter(email => {
+        if (!state.searchQuery) return true;
+        const s = (email.sender || "").toLowerCase();
+        const d = (email.display_name || "").toLowerCase();
+        const sub = (email.subject || "").toLowerCase();
+        const b = (email.body || "").toLowerCase();
+        return s.includes(state.searchQuery) || d.includes(state.searchQuery) || sub.includes(state.searchQuery) || b.includes(state.searchQuery);
+      });
+
+      if (filtered.length === 0) {
+        const emptyDiv = document.createElement("div");
+        emptyDiv.className = "empty-state";
+        emptyDiv.style.padding = "40px 16px";
+        const p = document.createElement("p");
+        p.textContent = "No se encontraron mensajes.";
+        emptyDiv.appendChild(p);
+        emailListEl.appendChild(emptyDiv);
+        return;
+      }
+
+      filtered.forEach(email => {
+        const row = document.createElement("div");
+        row.className = "email-row" + (email.read ? "" : " row-unread") + (state.selectedEmailId === email.id ? " selected" : "");
+        row.setAttribute("role", "option");
+        row.setAttribute("aria-selected", state.selectedEmailId === email.id ? "true" : "false");
+
+        const avatar = document.createElement("div");
+        avatar.className = "row-avatar";
+        const nameOrSender = email.display_name || email.sender;
+        avatar.style.backgroundColor = getAvatarColor(email.sender);
+        avatar.textContent = getInitials(nameOrSender);
+        row.appendChild(avatar);
+
+        const content = document.createElement("div");
+        content.className = "row-content";
+
+        const rowHeader = document.createElement("div");
+        rowHeader.className = "row-header";
+
+        const senderSpan = document.createElement("span");
+        senderSpan.className = "row-sender";
+        if (!email.read) {
+          const dot = document.createElement("span");
+          dot.className = "unread-indicator-dot";
+          senderSpan.appendChild(dot);
+        }
+        const senderText = document.createTextNode(nameOrSender);
+        senderSpan.appendChild(senderText);
+        rowHeader.appendChild(senderSpan);
+
+        const timeSpan = document.createElement("span");
+        timeSpan.className = "row-time";
+        timeSpan.textContent = email.datetime_label || "";
+        rowHeader.appendChild(timeSpan);
+        content.appendChild(rowHeader);
+
+        const subjDiv = document.createElement("div");
+        subjDiv.className = "row-subject";
+        subjDiv.textContent = email.subject || "(sin asunto)";
+
+        if (email.attachments && email.attachments.length > 0) {
+          const clip = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+          clip.setAttribute("class", "clip-icon");
+          clip.setAttribute("viewBox", "0 0 24 24");
+          clip.setAttribute("aria-hidden", "true");
+          const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+          path.setAttribute("d", "M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48");
+          clip.appendChild(path);
+          subjDiv.appendChild(clip);
+        }
+        content.appendChild(subjDiv);
+
+        const snippetDiv = document.createElement("div");
+        snippetDiv.className = "row-snippet";
+        snippetDiv.textContent = email.body ? email.body.replace(/\s+/g, " ").trim() : "";
+        content.appendChild(snippetDiv);
+
+        row.appendChild(content);
+
+        row.addEventListener("click", () => {
+          state.selectedEmailId = email.id;
+          email.read = true;
+          renderEmailList();
+          renderReadingPane();
+        });
+
+        emailListEl.appendChild(row);
+      });
+    }
+
+    function renderReadingPane() {
+      const email = state.emails.find(e => e.id === state.selectedEmailId);
+      if (!email) {
+        emptyReadingEl.style.display = "flex";
+        readingCardEl.style.display = "none";
+        // Remove Section 7 contract attributes when no message is open
+        readingCardEl.removeAttribute("data-msg-reading");
+        readingCardEl.removeAttribute("data-msg-id");
+        return;
+      }
+
+      emptyReadingEl.style.display = "none";
+      readingCardEl.style.display = "flex";
+
+      // Set Section 7 contract attributes on reading container
+      readingCardEl.setAttribute("data-msg-reading", "true");
+      readingCardEl.setAttribute("data-msg-id", email.id);
+
+      // Populate Contract Fields with raw values using textContent
+      const subjEl = readingCardEl.querySelector('[data-field="subject"]');
+      subjEl.textContent = email.subject || "";
+
+      const nameEl = readingCardEl.querySelector('[data-field="display-name"]');
+      nameEl.textContent = email.display_name || "";
+
+      const senderEl = readingCardEl.querySelector('[data-field="sender"]');
+      senderEl.textContent = email.sender ? "<" + email.sender + ">" : "";
+
+      const avatarEl = document.getElementById("reading-avatar");
+      avatarEl.style.backgroundColor = getAvatarColor(email.sender);
+      avatarEl.textContent = getInitials(email.display_name || email.sender);
+
+      document.getElementById("reading-datetime").textContent = email.datetime_label || "";
+
+      const replyToLine = document.getElementById("reading-reply-to-line");
+      const replyToEl = readingCardEl.querySelector('[data-field="reply-to"]');
+      if (email.reply_to && email.reply_to.trim()) {
+        replyToEl.textContent = email.reply_to;
+        replyToLine.style.display = "block";
+      } else {
+        replyToEl.textContent = "";
+        replyToLine.style.display = "none";
+      }
+
+      // Clear any notices from previous email
+      const noticesAnchor = readingCardEl.querySelector('[data-anchor="notices"]');
+      if (noticesAnchor) {
+        while (noticesAnchor.firstChild) {
+          noticesAnchor.removeChild(noticesAnchor.firstChild);
+        }
+      }
+
+      // Attachments area
+      const attsContainer = document.getElementById("reading-attachments");
+      while (attsContainer.firstChild) {
+        attsContainer.removeChild(attsContainer.firstChild);
+      }
+      if (email.attachments && email.attachments.length > 0) {
+        attsContainer.style.display = "flex";
+        email.attachments.forEach(attName => {
+          const chip = document.createElement("div");
+          chip.className = "attachment-chip";
+
+          const clipSvg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+          clipSvg.setAttribute("viewBox", "0 0 24 24");
+          clipSvg.setAttribute("aria-hidden", "true");
+          const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+          path.setAttribute("d", "M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48");
+          clipSvg.appendChild(path);
+          chip.appendChild(clipSvg);
+
+          // Contract requires only filename inside element with data-field="attachment"
+          const nameSpan = document.createElement("span");
+          nameSpan.setAttribute("data-field", "attachment");
+          nameSpan.textContent = attName;
+          chip.appendChild(nameSpan);
+
+          chip.addEventListener("click", () => {
+            showToast("Archivo simulado: no se puede abrir.");
+          });
+
+          attsContainer.appendChild(chip);
+        });
+      } else {
+        attsContainer.style.display = "none";
+      }
+
+      // Message body
+      const bodyEl = readingCardEl.querySelector('[data-field="body"]');
+      bodyEl.textContent = email.body || "";
+    }
+
+    // Start
+    window.addEventListener("DOMContentLoaded", initApp);
+  </script>
+</body>
+</html>
